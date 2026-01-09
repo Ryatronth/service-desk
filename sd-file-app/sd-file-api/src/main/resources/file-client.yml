@@ -1,0 +1,4 @@
+sd:
+  clients:
+    files:
+      url: ${FILES_SERVICE_URL:http://localhost:8081}

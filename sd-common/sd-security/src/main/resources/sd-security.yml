@@ -1,0 +1,42 @@
+sd:
+  keycloak:
+    base-url: ${KEYCLOAK_BASE_URL:http://localhost:8079}
+    realm: ${KEYCLOAK_REALM:service-desk}
+    api:
+      enabled: ${KEYCLOAK_API_ENABLED:false}
+      client-id: ${KEYCLOAK_CLIENT_ID:sd-iam-sync}
+      client-secret: ${KEYCLOAK_CLIENT_SECRET:changeme}
+      page-size: ${KEYCLOAK_PAGE_SIZE:200}
+      groups:
+        roles-root: service-desk
+        org-root: department-codes
+        branches-segment: branches
+        workplaces-segment: workplaces
+      attributes:
+        patronymic: patronymic
+        phone: phone
+  security:
+    enabled: ${SECURITY_ENABLED:true}
+    http:
+      csrf-enabled: ${SECURITY_CSRF_ENABLED:false}
+      permit-all: ${SECURITY_PERMIT_ALL:/actuator/**,/v3/api-docs/**,/swagger-ui/**,/swagger-ui.html}
+    swagger:
+      enabled: ${SWAGGER_ENABLED:true}
+      bearer-scheme-name: bearerAuth
+      oauth2-scheme-name: oauth2
+      token-url: ${sd.keycloak.base-url}/realms/${sd.keycloak.realm}/protocol/openid-connect/token
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${sd.keycloak.base-url}/realms/${sd.keycloak.realm}
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: ${sd.security.swagger.enabled}
+    operations-sorter: method
+    tags-sorter: alpha

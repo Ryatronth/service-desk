@@ -1,0 +1,2 @@
+ru.ryatronth.sd.security.config.SdSecurityAutoConfiguration
+ru.ryatronth.sd.security.config.SdSecurityKeycloakApiAutoConfiguration

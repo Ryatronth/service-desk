@@ -1,0 +1,4 @@
+sd:
+  clients:
+    department:
+      url: ${DEPARTMENT_SERVICE_URL:http://localhost:8080}

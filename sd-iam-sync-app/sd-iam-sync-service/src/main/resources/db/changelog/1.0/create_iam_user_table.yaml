@@ -1,0 +1,85 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1.0-create-iam-user
+      author: ryatronth
+      changes:
+        - createTable:
+            tableName: iam_user
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_iam_user
+                    nullable: false
+
+              - column:
+                  name: username
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uq_iam_user_username
+
+              - column:
+                  name: email
+                  type: varchar(256)
+
+              - column:
+                  name: phone
+                  type: varchar(64)
+
+              - column:
+                  name: first_name
+                  type: varchar(128)
+
+              - column:
+                  name: last_name
+                  type: varchar(128)
+
+              - column:
+                  name: patronymic
+                  type: varchar(128)
+
+              - column:
+                  name: enabled
+                  type: boolean
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: department_code
+                  type: varchar(128)
+
+              - column:
+                  name: workplace_code
+                  type: varchar(128)
+
+        - createIndex:
+            tableName: iam_user
+            indexName: ix_iam_user_email
+            columns:
+              - column:
+                  name: email
+
+        - createIndex:
+            tableName: iam_user
+            indexName: ix_iam_user_department_code
+            columns:
+              - column:
+                  name: department_code
+
+        - createIndex:
+            tableName: iam_user
+            indexName: ix_iam_user_workplace_code
+            columns:
+              - column:
+                  name: workplace_code
+
+        - createIndex:
+            tableName: iam_user
+            indexName: ix_iam_user_enabled
+            columns:
+              - column:
+                  name: enabled
