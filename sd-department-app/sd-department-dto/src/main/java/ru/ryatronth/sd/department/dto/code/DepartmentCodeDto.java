@@ -18,7 +18,7 @@ import lombok.Setter;
 public class DepartmentCodeDto {
 
   @Schema(description = "ID кода подразделения (1:1). Ссылка на справочник department_code", example = "123e4567-e89b-12d3-a456-426614174000", requiredMode = Schema.RequiredMode.REQUIRED)
-  private UUID codeId;
+  private UUID id;
 
   @Schema(description = "Код подразделения", example = "DEP-001")
   private String code;
