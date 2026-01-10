@@ -5,7 +5,8 @@
 
     <property name="LOGGING_LEVEL_ROOT" value="${LOG_LEVEL_ROOT:-INFO}"/>
     <property name="LOGGING_LEVEL_APP" value="${LOG_LEVEL_APP:-INFO}"/>
-    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] ${APP_NAME} [%X{traceId:-}] [%X{userId:-}] %logger{36} - %msg%n"/>
+    <property name="LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] ${APP_NAME} [%X{traceId:-}] [%X{userId:-}] %logger{36} - %msg%n"/>
 
     <springProfile name="!prod">
         <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">

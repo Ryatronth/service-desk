@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class IamSyncServiceApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(IamSyncServiceApplication.class, args);
-    }
+  static void main(String[] args) {
+    SpringApplication.run(IamSyncServiceApplication.class, args);
+  }
 
 }

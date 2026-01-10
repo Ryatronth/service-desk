@@ -7,11 +7,11 @@ import ru.ryatronth.sd.security.dto.CurrentUser;
 
 public interface SecurityUtils {
 
-    Optional<Jwt> currentJwt();
+  Optional<Jwt> currentJwt();
 
-    Optional<String> currentUserId();
+  Optional<String> currentUserId();
 
-    Optional<CurrentUser> currentUser();
+  Optional<CurrentUser> currentUser();
 
-    Set<String> currentRoles();
+  Set<String> currentRoles();
 }

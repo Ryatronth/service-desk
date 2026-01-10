@@ -8,8 +8,8 @@ import ru.ryatronth.sd.department.dto.department.DepartmentShortDto;
 @Mapper(componentModel = "spring")
 public interface DepartmentMapper {
 
-    DepartmentDto toDto(DepartmentEntity entity);
+  DepartmentDto toDto(DepartmentEntity entity);
 
-    DepartmentShortDto toShortDto(DepartmentEntity entity);
+  DepartmentShortDto toShortDto(DepartmentEntity entity);
 
 }

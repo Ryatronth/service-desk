@@ -9,8 +9,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "sd.iam-sync.scheduler")
 public class IamSyncSchedulerProperties {
 
-    private long initialDelayMs = 10_000;
+  private long initialDelayMs = 10_000;
 
-    private long fixedDelayMs = 300_000;
+  private long fixedDelayMs = 300_000;
 
 }

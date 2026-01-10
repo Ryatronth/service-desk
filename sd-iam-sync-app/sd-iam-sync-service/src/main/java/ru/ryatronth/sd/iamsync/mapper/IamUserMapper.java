@@ -7,6 +7,6 @@ import ru.ryatronth.sd.iamsync.dto.IamUserDto;
 @Mapper(componentModel = "spring")
 public interface IamUserMapper {
 
-    IamUserDto toDto(IamUserEntity entity);
+  IamUserDto toDto(IamUserEntity entity);
 
 }

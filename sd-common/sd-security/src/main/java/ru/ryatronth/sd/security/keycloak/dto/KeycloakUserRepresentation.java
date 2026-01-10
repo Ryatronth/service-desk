@@ -11,4 +11,5 @@ public record KeycloakUserRepresentation(
     String lastName,
     Boolean enabled,
     Map<String, List<String>> attributes
-) {}
+) {
+}

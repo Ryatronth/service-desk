@@ -11,4 +11,5 @@ public record ErrorResponse(
     String path,
     String traceId,
     List<ErrorFieldViolation> violations
-) {}
+) {
+}

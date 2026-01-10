@@ -7,6 +7,6 @@ import ru.ryatronth.sd.department.dto.type.DepartmentTypeDto;
 @Mapper(componentModel = "spring")
 public interface DepartmentTypeMapper {
 
-    DepartmentTypeDto toDto(DepartmentTypeEntity entity);
+  DepartmentTypeDto toDto(DepartmentTypeEntity entity);
 
 }

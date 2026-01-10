@@ -10,15 +10,15 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OrgDictionarySyncScheduler {
 
-    private final OrgDictionarySyncService syncService;
+  private final OrgDictionarySyncService syncService;
 
-    @Scheduled(
-        initialDelayString = "${sd.departments-sync.scheduler.initial-delay-ms}",
-        fixedDelayString = "${sd.departments-sync.scheduler.fixed-delay-ms}"
-    )
-    public void runSync() {
-        var result = syncService.sync();
-        log.info("IAM sync completed: processedUsers={}", result.branchesUpserted());
-    }
+  @Scheduled(
+      initialDelayString = "${sd.departments-sync.scheduler.initial-delay-ms}",
+      fixedDelayString = "${sd.departments-sync.scheduler.fixed-delay-ms}"
+  )
+  public void runSync() {
+    var result = syncService.sync();
+    log.info("IAM sync completed: processedUsers={}", result.branchesUpserted());
+  }
 
 }

@@ -1,5 +1,6 @@
 package ru.ryatronth.sd.security.jwt;
 
+import java.util.LinkedHashSet;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
@@ -10,36 +11,35 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import ru.ryatronth.sd.security.keycloak.groups.dto.SdUserGroups;
 
-import java.util.LinkedHashSet;
-
 @Slf4j
 @RequiredArgsConstructor
 public class SdJwtAuthenticationConverter implements Converter<Jwt, AbstractAuthenticationToken> {
 
-    private final JwtClaimsExtractor claimsExtractor;
+  private final JwtClaimsExtractor claimsExtractor;
 
-    /**
-     * Стандартный конвертер прав из spring security (scope -> SCOPE_xxx).
-     * Можно настроить prefix/claimName при необходимости, но обычно достаточно дефолта.
-     */
-    private final JwtGrantedAuthoritiesConverter defaultAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+  /**
+   * Стандартный конвертер прав из spring security (scope -> SCOPE_xxx).
+   * Можно настроить prefix/claimName при необходимости, но обычно достаточно дефолта.
+   */
+  private final JwtGrantedAuthoritiesConverter defaultAuthoritiesConverter =
+      new JwtGrantedAuthoritiesConverter();
 
-    @Override
-    public AbstractAuthenticationToken convert(Jwt jwt) {
-        var authorities = new LinkedHashSet<>(defaultAuthoritiesConverter.convert(jwt));
+  @Override
+  public AbstractAuthenticationToken convert(Jwt jwt) {
+    var authorities = new LinkedHashSet<>(defaultAuthoritiesConverter.convert(jwt));
 
-        for (String role : claimsExtractor.roles(jwt)) {
-            authorities.add(new SimpleGrantedAuthority(role));
-        }
-
-        JwtAuthenticationToken token = new JwtAuthenticationToken(jwt, authorities);
-
-        SdUserGroups groups = claimsExtractor.userGroups(jwt);
-        token.setDetails(groups);
-
-        log.debug("Пользователь аутентифицирован. Подразделение: {}, рабочее место: {}, роли: {}",
-                  groups.departmentCode(), groups.workplaceCode(), groups.roles());
-
-        return token;
+    for (String role : claimsExtractor.roles(jwt)) {
+      authorities.add(new SimpleGrantedAuthority(role));
     }
+
+    JwtAuthenticationToken token = new JwtAuthenticationToken(jwt, authorities);
+
+    SdUserGroups groups = claimsExtractor.userGroups(jwt);
+    token.setDetails(groups);
+
+    log.debug("Пользователь аутентифицирован. Подразделение: {}, рабочее место: {}, роли: {}",
+        groups.departmentCode(), groups.workplaceCode(), groups.roles());
+
+    return token;
+  }
 }

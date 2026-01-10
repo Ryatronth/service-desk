@@ -15,54 +15,57 @@ import ru.ryatronth.sd.security.keycloak.groups.KeycloakOrgGroupsExtractor;
 @Service
 public class OrgDictionarySyncService {
 
-    private final SdKeycloakProperties props;
+  private final SdKeycloakProperties props;
 
-    private final KeycloakAdminService admin;
+  private final KeycloakAdminService admin;
 
-    private final KeycloakOrgGroupsExtractor extractor;
+  private final KeycloakOrgGroupsExtractor extractor;
 
-    private final DepartmentCodeRepository departmentCodeRepository;
+  private final DepartmentCodeRepository departmentCodeRepository;
 
-    @Transactional
-    public SyncResult sync() {
-        String orgRoot = props.getApi().getGroups().getOrgRoot();
+  @Transactional
+  public SyncResult sync() {
+    String orgRoot = props.getApi().getGroups().getOrgRoot();
 
-        log.info("Запуск синхронизации оргсправочника из Keycloak. Корневая группа: {}", orgRoot);
+    log.info("Запуск синхронизации оргсправочника из Keycloak. Корневая группа: {}", orgRoot);
 
-        var rootOpt = admin.findGroupByName(orgRoot);
-        if (rootOpt.isEmpty()) {
-            log.warn("Корневая группа оргструктуры не найдена в Keycloak: {}", orgRoot);
-            return new SyncResult(0, 0);
-        }
-
-        var tree = admin.getGroupTree(rootOpt.get().id());
-        var extracted = extractor.extract(tree);
-
-        int branchUpserts = 0;
-        int workplaceUpserts = 0;
-
-        for (String branchCode : extracted.branchCodes()) {
-            upsertDepartmentCode(branchCode);
-            branchUpserts++;
-        }
-
-        log.info("Синхронизация оргсправочника завершена. Подразделений обновлено/создано: {}", branchUpserts);
-        return new SyncResult(branchUpserts, workplaceUpserts);
+    var rootOpt = admin.findGroupByName(orgRoot);
+    if (rootOpt.isEmpty()) {
+      log.warn("Корневая группа оргструктуры не найдена в Keycloak: {}", orgRoot);
+      return new SyncResult(0, 0);
     }
 
-    private DepartmentCodeEntity upsertDepartmentCode(String code) {
-        String normalized = norm(code);
+    var tree = admin.getGroupTree(rootOpt.get().id());
+    var extracted = extractor.extract(tree);
 
-        return departmentCodeRepository.findByCodeIgnoreCase(normalized).map(existing -> {
-            existing.setCode(normalized);
-            return departmentCodeRepository.save(existing);
-        }).orElseGet(() -> departmentCodeRepository.save(DepartmentCodeEntity.builder().code(normalized).build()));
+    int branchUpserts = 0;
+    int workplaceUpserts = 0;
+
+    for (String branchCode : extracted.branchCodes()) {
+      upsertDepartmentCode(branchCode);
+      branchUpserts++;
     }
 
-    private static String norm(String s) {
-        return s == null ? null : s.trim();
-    }
+    log.info("Синхронизация оргсправочника завершена. Подразделений обновлено/создано: {}",
+        branchUpserts);
+    return new SyncResult(branchUpserts, workplaceUpserts);
+  }
 
-    public record SyncResult(int branchesUpserted, int workplacesUpserted) {}
+  private DepartmentCodeEntity upsertDepartmentCode(String code) {
+    String normalized = norm(code);
+
+    return departmentCodeRepository.findByCodeIgnoreCase(normalized).map(existing -> {
+      existing.setCode(normalized);
+      return departmentCodeRepository.save(existing);
+    }).orElseGet(() -> departmentCodeRepository.save(
+        DepartmentCodeEntity.builder().code(normalized).build()));
+  }
+
+  private static String norm(String s) {
+    return s == null ? null : s.trim();
+  }
+
+  public record SyncResult(int branchesUpserted, int workplacesUpserted) {
+  }
 
 }

@@ -7,4 +7,5 @@ import org.springframework.cloud.openfeign.FeignClient;
     url = "${sd.clients.department.url}",
     path = DepartmentCodeApiV1.BASE_PATH
 )
-public interface DepartmentCodeClientV1 extends DepartmentCodeApiV1 {}
+public interface DepartmentCodeClientV1 extends DepartmentCodeApiV1 {
+}

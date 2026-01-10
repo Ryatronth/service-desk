@@ -18,16 +18,16 @@ import ru.ryatronth.sd.error.web.GlobalExceptionHandler;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class SdErrorAutoConfiguration {
 
-    @Bean
-    @ConditionalOnMissingBean
-    public ErrorResponseFactory errorResponseFactory(SdErrorProperties properties) {
-        return new ErrorResponseFactory(properties);
-    }
+  @Bean
+  @ConditionalOnMissingBean
+  public ErrorResponseFactory errorResponseFactory(SdErrorProperties properties) {
+    return new ErrorResponseFactory(properties);
+  }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public GlobalExceptionHandler globalExceptionHandler(ErrorResponseFactory factory) {
-        return new GlobalExceptionHandler(factory);
-    }
+  @Bean
+  @ConditionalOnMissingBean
+  public GlobalExceptionHandler globalExceptionHandler(ErrorResponseFactory factory) {
+    return new GlobalExceptionHandler(factory);
+  }
 
 }

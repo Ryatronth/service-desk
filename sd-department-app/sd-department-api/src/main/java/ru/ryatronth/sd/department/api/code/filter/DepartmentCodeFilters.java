@@ -11,13 +11,13 @@ import ru.ryatronth.sd.department.api.common.SearchMode;
 @Schema(name = "DepartmentCodeFilters", description = "Фильтры для поиска кодов подразделений")
 public class DepartmentCodeFilters {
 
-    @Parameter(description = "Поиск (LIKE) по code", example = "DEP")
-    private String q;
+  @Parameter(description = "Поиск (LIKE) по code", example = "DEP")
+  private String q;
 
-    @Parameter(description = "фильтр по code", example = "DP-MSK-1")
-    private String code;
+  @Parameter(description = "фильтр по code", example = "DP-MSK-1")
+  private String code;
 
-    @Parameter(description = "Режим объединения условий: AND (по умолчанию) или OR", example = "AND")
-    private SearchMode mode = SearchMode.AND;
+  @Parameter(description = "Режим объединения условий: AND (по умолчанию) или OR", example = "AND")
+  private SearchMode mode = SearchMode.AND;
 
 }

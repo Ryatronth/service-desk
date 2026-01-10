@@ -7,4 +7,5 @@ import ru.ryatronth.sd.property.reader.EnableConfigFiles;
 @Configuration
 @EnableFeignClients
 @EnableConfigFiles("department-client.yml")
-public class DepartmentApiConfig {}
+public class DepartmentApiConfig {
+}

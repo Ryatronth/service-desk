@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="fastRequestCurrentParamGroup">
+    <option name="clasDescription" value="File Management API" />
+    <option name="className" value="ru.ryatronth.sd.file.api.FileApiV1" />
+    <option name="filePath" value="" />
+    <option name="method" value="initUpload" />
+    <option name="methodDescription" value="Инициализация загрузки файла" />
+    <option name="methodType" value="POST" />
+    <option name="module" value="sd-file-api" />
+    <option name="originUrl" value="/init" />
+    <option name="requestParamMap">
+      <map>
+        <entry key="contentType">
+          <value>
+            <Object />
+          </value>
+        </entry>
+        <entry key="originalName">
+          <value>
+            <Object />
+          </value>
+        </entry>
+        <entry key="sizeBytes">
+          <value>
+            <Object />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="responseParamMap">
+      <map>
+        <entry key="return">
+          <value>
+            <Object />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="returnDocument" value="{&quot;status&quot;:{},&quot;headers&quot;:{},&quot;body&quot;:{&quot;id&quot;:{&quot;mostSigBits&quot;:&quot;No comment,Type =Number&quot;,&quot;leastSigBits&quot;:&quot;No comment,Type =Number&quot;},&quot;originalName&quot;:&quot;Исходное имя файла&quot;,&quot;contentType&quot;:&quot;Тип содержимого&quot;,&quot;sizeBytes&quot;:&quot;Размер в байтах&quot;,&quot;bucket&quot;:&quot;Bucket, где хранится файл&quot;,&quot;key&quot;:&quot;Ключ (путь в S3)&quot;,&quot;url&quot;:&quot;Presigned URL для скачивания&quot;,&quot;status&quot;:&quot;Статус файла&quot;,&quot;createdAt&quot;:&quot;Временная метка создания&quot;,&quot;updatedAt&quot;:&quot;Временная метка обновления&quot;}}" />
+    <option name="url" value="/init" />
+  </component>
+</project>

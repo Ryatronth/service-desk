@@ -1,7 +1,6 @@
 package ru.ryatronth.sd.file.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.time.Instant;
 import java.util.UUID;
 
@@ -15,4 +14,5 @@ public record FileDto(@Schema(description = "Идентификатор файл
                       @Schema(description = "Presigned URL для скачивания") String url,
                       @Schema(description = "Статус файла") FileStatus status,
                       @Schema(description = "Временная метка создания") Instant createdAt,
-                      @Schema(description = "Временная метка обновления") Instant updatedAt) {}
+                      @Schema(description = "Временная метка обновления") Instant updatedAt) {
+}

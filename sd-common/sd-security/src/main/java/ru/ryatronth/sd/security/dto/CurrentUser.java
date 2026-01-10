@@ -14,4 +14,5 @@ public record CurrentUser(
     String departmentId,
     String workplaceId,
     Set<String> roles
-) {}
+) {
+}

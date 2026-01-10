@@ -1,0 +1,69 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1.0-create-ticket-category-assignee-table
+      author: roman.novikov
+      changes:
+        - createTable:
+            tableName: ticket_category_assignee
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: category_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: department_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            constraintName: fk_tca_category
+            baseTableName: ticket_category_assignee
+            baseColumnNames: category_id
+            referencedTableName: ticket_category
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+        - addUniqueConstraint:
+            constraintName: uk_tca_category_department_user
+            tableName: ticket_category_assignee
+            columnNames: category_id, department_id, user_id
+
+        - createIndex:
+            indexName: idx_tca_category_department
+            tableName: ticket_category_assignee
+            columns:
+              - column:
+                  name: category_id
+              - column:
+                  name: department_id
+
+        - createIndex:
+            indexName: idx_tca_user_department
+            tableName: ticket_category_assignee
+            columns:
+              - column:
+                  name: user_id
+              - column:
+                  name: department_id

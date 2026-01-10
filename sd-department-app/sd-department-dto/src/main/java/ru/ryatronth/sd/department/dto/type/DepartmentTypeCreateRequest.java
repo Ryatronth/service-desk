@@ -15,7 +15,7 @@ import lombok.Setter;
 @Schema(name = "DepartmentTypeCreateRequest", description = "Запрос на создание типа подразделения")
 public class DepartmentTypeCreateRequest {
 
-    @Schema(description = "Название типа (уникальное)", example = "Офис", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String name;
+  @Schema(description = "Название типа (уникальное)", example = "Офис", requiredMode = Schema.RequiredMode.REQUIRED)
+  private String name;
 
 }

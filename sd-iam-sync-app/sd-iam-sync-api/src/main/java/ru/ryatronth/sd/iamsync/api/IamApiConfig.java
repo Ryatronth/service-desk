@@ -7,4 +7,5 @@ import ru.ryatronth.sd.property.reader.EnableConfigFiles;
 @Configuration
 @EnableFeignClients
 @EnableConfigFiles("sync-users-client.yml")
-public class IamApiConfig {}
+public class IamApiConfig {
+}

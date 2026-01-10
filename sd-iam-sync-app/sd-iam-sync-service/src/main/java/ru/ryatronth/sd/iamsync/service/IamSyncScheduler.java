@@ -10,15 +10,15 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class IamSyncScheduler {
 
-    private final IamSyncService syncService;
+  private final IamSyncService syncService;
 
-    @Scheduled(
-        initialDelayString = "${sd.iam-sync.scheduler.initial-delay-ms}",
-        fixedDelayString = "${sd.iam-sync.scheduler.fixed-delay-ms}"
-    )
-    public void runSync() {
-        var result = syncService.syncAllUsers();
-        log.info("IAM sync completed: processedUsers={}", result.processedUsers());
-    }
+  @Scheduled(
+      initialDelayString = "${sd.iam-sync.scheduler.initial-delay-ms}",
+      fixedDelayString = "${sd.iam-sync.scheduler.fixed-delay-ms}"
+  )
+  public void runSync() {
+    var result = syncService.syncAllUsers();
+    log.info("IAM sync completed: processedUsers={}", result.processedUsers());
+  }
 
 }

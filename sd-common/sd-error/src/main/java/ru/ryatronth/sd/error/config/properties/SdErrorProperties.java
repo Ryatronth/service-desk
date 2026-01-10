@@ -9,10 +9,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "sd.error")
 public class SdErrorProperties {
 
-    private boolean enabled = true;
+  private boolean enabled = true;
 
-    private boolean includeTraceId = true;
+  private boolean includeTraceId = true;
 
-    private String traceIdMdcKey = "traceId";
+  private String traceIdMdcKey = "traceId";
 
 }

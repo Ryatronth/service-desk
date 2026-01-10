@@ -14,6 +14,10 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -25,11 +29,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import ru.ryatronth.sd.department.domain.code.DepartmentCodeEntity;
 import ru.ryatronth.sd.department.domain.type.DepartmentTypeEntity;
-
-import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -49,58 +48,58 @@ import java.util.UUID;
     }
 )
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString(exclude = {"parent", "children", "type"})
+@ToString(exclude = {"parent", "children", "type", "code"})
 public class DepartmentEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", nullable = false)
-    @EqualsAndHashCode.Include
-    private UUID id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  @Column(name = "id", nullable = false)
+  @EqualsAndHashCode.Include
+  private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(
-        name = "parent_id",
-        foreignKey = @ForeignKey(name = "fk_department_parent")
-    )
-    private DepartmentEntity parent;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(
+      name = "parent_id",
+      foreignKey = @ForeignKey(name = "fk_department_parent")
+  )
+  private DepartmentEntity parent;
 
-    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
-    @Builder.Default
-    private Set<DepartmentEntity> children = new HashSet<>();
+  @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+  @Builder.Default
+  private Set<DepartmentEntity> children = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(
-        name = "code_id",
-        nullable = false,
-        unique = true,
-        foreignKey = @ForeignKey(name = "fk_department_code_id")
-    )
-    private DepartmentCodeEntity code;
+  @OneToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(
+      name = "code_id",
+      nullable = false,
+      unique = true,
+      foreignKey = @ForeignKey(name = "fk_department_code_id")
+  )
+  private DepartmentCodeEntity code;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(
-        name = "type_id",
-        nullable = false,
-        foreignKey = @ForeignKey(name = "fk_department_type")
-    )
-    private DepartmentTypeEntity type;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(
+      name = "type_id",
+      nullable = false,
+      foreignKey = @ForeignKey(name = "fk_department_type")
+  )
+  private DepartmentTypeEntity type;
 
-    @Column(name = "name", nullable = false, length = 255)
-    private String name;
+  @Column(name = "name", nullable = false, length = 255)
+  private String name;
 
-    @Column(name = "area", nullable = false, length = 255)
-    private String area;
+  @Column(name = "area", nullable = false, length = 255)
+  private String area;
 
-    @Column(name = "address", nullable = false, length = 512)
-    private String address;
+  @Column(name = "address", nullable = false, length = 512)
+  private String address;
 
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private Instant createdAt;
+  @CreationTimestamp
+  @Column(name = "created_at", nullable = false, updatable = false)
+  private Instant createdAt;
 
-    @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
-    private Instant updatedAt;
+  @UpdateTimestamp
+  @Column(name = "updated_at", nullable = false)
+  private Instant updatedAt;
 
 }

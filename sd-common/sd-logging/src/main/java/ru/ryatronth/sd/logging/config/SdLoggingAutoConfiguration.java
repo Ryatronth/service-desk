@@ -23,27 +23,28 @@ import ru.ryatronth.sd.security.utils.SecurityUtils;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class SdLoggingAutoConfiguration {
 
-    @Bean
-    @ConditionalOnMissingBean
-    public TraceIdProvider traceIdProvider() {
-        return new TraceIdProvider();
-    }
+  @Bean
+  @ConditionalOnMissingBean
+  public TraceIdProvider traceIdProvider() {
+    return new TraceIdProvider();
+  }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public FilterRegistrationBean<MdcLoggingFilter> mdcLoggingFilter(SdLoggingProperties properties,
-                                                                     TraceIdProvider traceIdProvider,
-                                                                     SecurityUtils securityUtils) {
-        var bean = new FilterRegistrationBean<>(new MdcLoggingFilter(properties, securityUtils, traceIdProvider));
-        bean.setOrder(Integer.MIN_VALUE);
-        return bean;
-    }
+  @Bean
+  @ConditionalOnMissingBean
+  public FilterRegistrationBean<MdcLoggingFilter> mdcLoggingFilter(SdLoggingProperties properties,
+                                                                   TraceIdProvider traceIdProvider,
+                                                                   SecurityUtils securityUtils) {
+    var bean = new FilterRegistrationBean<>(
+        new MdcLoggingFilter(properties, securityUtils, traceIdProvider));
+    bean.setOrder(Integer.MIN_VALUE);
+    return bean;
+  }
 
-    @Bean
-    @ConditionalOnClass(name = "feign.RequestInterceptor")
-    @ConditionalOnMissingBean(RequestInterceptor.class)
-    public RequestInterceptor traceIdFeignRequestInterceptor(SdLoggingProperties properties) {
-        return new TraceIdFeignRequestInterceptor(properties);
-    }
+  @Bean
+  @ConditionalOnClass(name = "feign.RequestInterceptor")
+  @ConditionalOnMissingBean(RequestInterceptor.class)
+  public RequestInterceptor traceIdFeignRequestInterceptor(SdLoggingProperties properties) {
+    return new TraceIdFeignRequestInterceptor(properties);
+  }
 
 }

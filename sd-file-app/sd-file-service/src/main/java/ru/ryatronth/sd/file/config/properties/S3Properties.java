@@ -9,16 +9,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "sd.s3")
 public class S3Properties {
 
-    private String accessKey;
+  private String accessKey;
 
-    private String secretKey;
+  private String secretKey;
 
-    private String endpoint;
+  private String endpoint;
 
-    private String bucket;
+  private String bucket;
 
-    private String keyPrefix;
+  private String keyPrefix;
 
-    private Long urlExpirationMinutes;
+  private Long urlExpirationMinutes;
 
 }

@@ -15,7 +15,7 @@ import lombok.Setter;
 @Schema(name = "DepartmentCodeUpdateRequest", description = "Запрос на обновление кода подразделения")
 public class DepartmentCodeUpdateRequest {
 
-    @Schema(description = "Код подразделения (уникальный)", example = "DEP-001", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String code;
+  @Schema(description = "Код подразделения (уникальный)", example = "DEP-001", requiredMode = Schema.RequiredMode.REQUIRED)
+  private String code;
 
 }

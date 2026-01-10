@@ -9,4 +9,5 @@ import ru.ryatronth.sd.security.config.properties.SdSecurityProperties;
 @Configuration
 @EnableConfigFiles("classpath:sd-security.yml")
 @EnableConfigurationProperties({SdSecurityProperties.class, SdKeycloakProperties.class})
-public class BaseSdSecurityConfig {}
+public class BaseSdSecurityConfig {
+}

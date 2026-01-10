@@ -1,3 +1,4 @@
+name: "service-desk-container"
 services:
   sd-postgres:
     image: postgres:16-alpine

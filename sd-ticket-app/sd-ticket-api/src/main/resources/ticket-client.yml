@@ -1,0 +1,4 @@
+sd:
+  clients:
+    ticket:
+      url: ${TICKET_SERVICE_URL:http://localhost:8083}

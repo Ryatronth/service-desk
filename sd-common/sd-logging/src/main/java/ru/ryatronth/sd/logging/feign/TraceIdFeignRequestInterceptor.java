@@ -10,15 +10,15 @@ import ru.ryatronth.sd.logging.config.properties.SdLoggingProperties;
 @RequiredArgsConstructor
 public class TraceIdFeignRequestInterceptor implements RequestInterceptor {
 
-    private final SdLoggingProperties properties;
+  private final SdLoggingProperties properties;
 
-    @Override
-    public void apply(RequestTemplate template) {
-        String traceId = MDC.get(MdcKeys.TRACE_ID);
-        if (traceId == null || traceId.isBlank()) {
-            return;
-        }
-        template.header(properties.getHttp().getTraceIdHeader(), traceId);
+  @Override
+  public void apply(RequestTemplate template) {
+    String traceId = MDC.get(MdcKeys.TRACE_ID);
+    if (traceId == null || traceId.isBlank()) {
+      return;
     }
+    template.header(properties.getHttp().getTraceIdHeader(), traceId);
+  }
 
 }

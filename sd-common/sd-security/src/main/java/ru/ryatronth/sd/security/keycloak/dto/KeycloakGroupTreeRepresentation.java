@@ -8,4 +8,5 @@ public record KeycloakGroupTreeRepresentation(
     String path,
     Integer subGroupCount,
     List<KeycloakGroupTreeRepresentation> subGroups
-) {}
+) {
+}

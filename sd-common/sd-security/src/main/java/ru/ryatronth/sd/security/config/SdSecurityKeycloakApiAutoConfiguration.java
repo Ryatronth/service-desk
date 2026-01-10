@@ -20,50 +20,52 @@ import ru.ryatronth.sd.security.keycloak.groups.KeycloakOrgGroupsExtractor;
 @ConditionalOnProperty(prefix = "sd.keycloak.api", name = "enabled", havingValue = "true")
 public class SdSecurityKeycloakApiAutoConfiguration {
 
-    @Bean
-    @ConditionalOnMissingBean
-    public RestClient keycloakRestClient(RestClient.Builder builder) {
-        var httpClient = java.net.http.HttpClient.newBuilder().build();
-        var requestFactory = new JdkClientHttpRequestFactory(httpClient);
-        return builder.requestFactory(requestFactory).build();
-    }
+  @Bean
+  @ConditionalOnMissingBean
+  public RestClient keycloakRestClient(RestClient.Builder builder) {
+    var httpClient = java.net.http.HttpClient.newBuilder().build();
+    var requestFactory = new JdkClientHttpRequestFactory(httpClient);
+    return builder.requestFactory(requestFactory).build();
+  }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public KeycloakAttributesReader keycloakAttributesReader(SdKeycloakProperties properties) {
-        return new KeycloakAttributesReader(properties);
-    }
+  @Bean
+  @ConditionalOnMissingBean
+  public KeycloakAttributesReader keycloakAttributesReader(SdKeycloakProperties properties) {
+    return new KeycloakAttributesReader(properties);
+  }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public KeycloakGroupPathClassifier keycloakGroupPathClassifier(SdKeycloakProperties properties) {
-        return new KeycloakGroupPathClassifier(properties);
-    }
+  @Bean
+  @ConditionalOnMissingBean
+  public KeycloakGroupPathClassifier keycloakGroupPathClassifier(SdKeycloakProperties properties) {
+    return new KeycloakGroupPathClassifier(properties);
+  }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public KeycloakGroupPathsMapper keycloakGroupPathsMapper(KeycloakGroupPathClassifier classifier) {
-        return new KeycloakGroupPathsMapper(classifier);
-    }
+  @Bean
+  @ConditionalOnMissingBean
+  public KeycloakGroupPathsMapper keycloakGroupPathsMapper(KeycloakGroupPathClassifier classifier) {
+    return new KeycloakGroupPathsMapper(classifier);
+  }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public KeycloakOrgGroupsExtractor keycloakOrgGroupsExtractor(KeycloakGroupPathClassifier classifier) {
-        return new KeycloakOrgGroupsExtractor(classifier);
-    }
+  @Bean
+  @ConditionalOnMissingBean
+  public KeycloakOrgGroupsExtractor keycloakOrgGroupsExtractor(
+      KeycloakGroupPathClassifier classifier) {
+    return new KeycloakOrgGroupsExtractor(classifier);
+  }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public KeycloakTokenService keycloakTokenService(RestClient keycloakRestClient, SdKeycloakProperties properties) {
-        return new KeycloakTokenService(keycloakRestClient, properties);
-    }
+  @Bean
+  @ConditionalOnMissingBean
+  public KeycloakTokenService keycloakTokenService(RestClient keycloakRestClient,
+                                                   SdKeycloakProperties properties) {
+    return new KeycloakTokenService(keycloakRestClient, properties);
+  }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public KeycloakAdminService keycloakAdminService(RestClient keycloakRestClient,
-                                                     KeycloakTokenService tokenService,
-                                                     SdKeycloakProperties properties) {
-        return new KeycloakAdminService(keycloakRestClient, tokenService, properties);
-    }
+  @Bean
+  @ConditionalOnMissingBean
+  public KeycloakAdminService keycloakAdminService(RestClient keycloakRestClient,
+                                                   KeycloakTokenService tokenService,
+                                                   SdKeycloakProperties properties) {
+    return new KeycloakAdminService(keycloakRestClient, tokenService, properties);
+  }
 
 }
