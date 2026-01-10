@@ -35,12 +35,12 @@ public final class IamUserSpecifications {
 
   public static Specification<IamUserEntity> departmentIdEquals(String departmentId) {
     return (root, query, cb) -> isBlank(departmentId) ? cb.conjunction() :
-        cb.equal(root.get("departmentId"), departmentId.trim());
+        cb.equal(root.get("departmentCode"), departmentId.trim());
   }
 
   public static Specification<IamUserEntity> workplaceIdEquals(String workplaceId) {
     return (root, query, cb) -> isBlank(workplaceId) ? cb.conjunction() :
-        cb.equal(root.get("workplaceId"), workplaceId.trim());
+        cb.equal(root.get("workplaceCode"), workplaceId.trim());
   }
 
   public static Specification<IamUserEntity> qLike(String q) {
@@ -58,8 +58,8 @@ public final class IamUserSpecifications {
           cb.like(cb.lower(root.get("lastName")), like),
           cb.like(cb.lower(root.get("patronymic")), like),
           cb.like(cb.lower(root.get("phone")), like),
-          cb.like(cb.lower(root.get("departmentId")), like),
-          cb.like(cb.lower(root.get("workplaceId")), like));
+          cb.like(cb.lower(root.get("departmentCode")), like),
+          cb.like(cb.lower(root.get("workplaceCode")), like));
     };
   }
 
@@ -75,8 +75,8 @@ public final class IamUserSpecifications {
     private String email;
 
     private String phone;
-    private String departmentId;
-    private String workplaceId;
+    private String departmentCode;
+    private String workplaceCode;
 
     @Builder.Default
     private SearchMode mode = SearchMode.AND;
@@ -98,11 +98,11 @@ public final class IamUserSpecifications {
       if (!isBlank(phone)) {
         active.add(phoneEquals(phone));
       }
-      if (!isBlank(departmentId)) {
-        active.add(departmentIdEquals(departmentId));
+      if (!isBlank(departmentCode)) {
+        active.add(departmentIdEquals(departmentCode));
       }
-      if (!isBlank(workplaceId)) {
-        active.add(workplaceIdEquals(workplaceId));
+      if (!isBlank(workplaceCode)) {
+        active.add(workplaceIdEquals(workplaceCode));
       }
       if (!isBlank(q)) {
         active.add(qLike(q));

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ryatronth.sd.department.api.common.SearchMode;
 import ru.ryatronth.sd.department.api.department.filter.DepartmentFilters;
+import ru.ryatronth.sd.department.api.department.filter.DepartmentParentFilters;
 import ru.ryatronth.sd.department.domain.code.DepartmentCodeRepository;
 import ru.ryatronth.sd.department.domain.department.DepartmentEntity;
 import ru.ryatronth.sd.department.domain.department.DepartmentRepository;
@@ -38,6 +39,20 @@ public class DepartmentService {
     var spec = DepartmentSpecifications.Filter.builder()
         .q(filters == null ? null : filters.getQ())
         .parentId(filters == null ? null : filters.getParentId())
+        .codeId(filters == null ? null : filters.getCodeId())
+        .typeId(filters == null ? null : filters.getTypeId())
+        .mode(filters == null || filters.getMode() == null ? SearchMode.AND : filters.getMode())
+        .build()
+        .toSpec();
+
+    return repository.findAll(spec, pageable);
+  }
+
+  @Transactional(readOnly = true)
+  public Page<DepartmentEntity> getAllForParent(DepartmentParentFilters filters, Pageable pageable) {
+    var spec = DepartmentSpecifications.Filter.builder()
+        .q(filters == null ? null : filters.getQ())
+        .idNotEq(filters == null ? null : filters.getCurrentId())
         .codeId(filters == null ? null : filters.getCodeId())
         .typeId(filters == null ? null : filters.getTypeId())
         .mode(filters == null || filters.getMode() == null ? SearchMode.AND : filters.getMode())

@@ -39,8 +39,8 @@ public class IamUserService {
         .username(filters.getUsername())
         .email(filters.getEmail())
         .phone(filters.getPhone())
-        .departmentId(filters.getDepartmentId())
-        .workplaceId(filters.getWorkplaceId())
+        .departmentCode(filters.getDepartmentCode())
+        .workplaceCode(filters.getWorkplaceCode())
         .mode(filters.getMode() == null ? SearchMode.AND : filters.getMode())
         .build()
         .toSpec();

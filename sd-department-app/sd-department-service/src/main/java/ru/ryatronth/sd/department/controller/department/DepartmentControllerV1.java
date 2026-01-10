@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.ryatronth.sd.department.api.department.DepartmentApiV1;
 import ru.ryatronth.sd.department.api.department.filter.DepartmentFilters;
+import ru.ryatronth.sd.department.api.department.filter.DepartmentParentFilters;
 import ru.ryatronth.sd.department.dto.department.DepartmentCreateRequest;
 import ru.ryatronth.sd.department.dto.department.DepartmentDto;
 import ru.ryatronth.sd.department.dto.department.DepartmentShortDto;
@@ -38,6 +39,12 @@ public class DepartmentControllerV1 implements DepartmentApiV1 {
   @Override
   public ResponseEntity<Page<DepartmentDto>> getAll(DepartmentFilters filters, Pageable pageable) {
     return ResponseEntity.ok(service.getAll(filters, pageable).map(mapper::toDto));
+  }
+
+  @Override
+  public ResponseEntity<Page<DepartmentShortDto>> getAllForParent(DepartmentParentFilters filters,
+                                                                  Pageable pageable) {
+    return ResponseEntity.ok(service.getAllForParent(filters, pageable).map(mapper::toShortDto));
   }
 
   @Override

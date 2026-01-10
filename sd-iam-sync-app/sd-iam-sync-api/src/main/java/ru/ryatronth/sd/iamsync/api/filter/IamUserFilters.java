@@ -8,7 +8,7 @@ import org.springdoc.core.annotations.ParameterObject;
 @ParameterObject
 public class IamUserFilters {
 
-  @Parameter(description = "Поисковая строка (LIKE) по username/email/ФИО/phone/departmentId/workplaceId")
+  @Parameter(description = "Поисковая строка (LIKE) по username/email/ФИО/phone/departmentCode/workplaceCode")
   private String q;
 
   @Parameter(description = "Фильтр по активности пользователя")
@@ -23,11 +23,11 @@ public class IamUserFilters {
   @Parameter(description = "Фильтр по телефону (строгое совпадение)")
   private String phone;
 
-  @Parameter(description = "Фильтр по departmentId (строгое совпадение)")
-  private String departmentId;
+  @Parameter(description = "Фильтр по departmentCode (строгое совпадение)")
+  private String departmentCode;
 
-  @Parameter(description = "Фильтр по workplaceId (строгое совпадение)")
-  private String workplaceId;
+  @Parameter(description = "Фильтр по workplaceCode (строгое совпадение)")
+  private String workplaceCode;
 
   @Parameter(description = "Режим объединения условий: AND (по умолчанию) или OR", example = "AND")
   private SearchMode mode = SearchMode.AND;

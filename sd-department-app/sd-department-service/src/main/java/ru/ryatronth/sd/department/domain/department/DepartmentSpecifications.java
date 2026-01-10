@@ -14,6 +14,11 @@ import ru.ryatronth.sd.department.api.common.SearchMode;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DepartmentSpecifications {
 
+  public static Specification<DepartmentEntity> idNotEquals(UUID id) {
+    return (root, query, cb) -> id == null ? cb.conjunction() :
+        cb.notEqual(root.get("id"), id);
+  }
+
   public static Specification<DepartmentEntity> parentIdEquals(UUID parentId) {
     return (root, query, cb) -> parentId == null ? cb.conjunction() :
         cb.equal(root.get("parent").get("id"), parentId);
@@ -52,6 +57,8 @@ public final class DepartmentSpecifications {
 
     private String q;
 
+    private UUID idNotEq;
+
     private UUID parentId;
 
     private UUID codeId;
@@ -66,6 +73,9 @@ public final class DepartmentSpecifications {
 
       var active = new ArrayList<Specification<DepartmentEntity>>();
 
+      if (idNotEq != null) {
+        active.add(idNotEquals(idNotEq));
+      }
       if (parentId != null) {
         active.add(parentIdEquals(parentId));
       }
