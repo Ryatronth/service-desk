@@ -1,0 +1,86 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1.0-create-ticket-event-table
+      author: ryatronth
+      changes:
+        - createTable:
+            tableName: ticket_event
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: ticket_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: ticket_snapshot
+                  type: JSONB
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: type
+                  type: VARCHAR(64)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: actor_user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: actor_snapshot
+                  type: JSONB
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: payload
+                  type: JSONB
+
+              - column:
+                  name: comment
+                  type: TEXT
+
+              - column:
+                  name: created_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            constraintName: fk_ticket_event_ticket
+            baseTableName: ticket_event
+            baseColumnNames: ticket_id
+            referencedTableName: ticket
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+        - createIndex:
+            indexName: idx_ticket_event_ticket
+            tableName: ticket_event
+            columns:
+              - column: { name: ticket_id }
+
+        - createIndex:
+            indexName: idx_ticket_event_created_at
+            tableName: ticket_event
+            columns:
+              - column: { name: created_at }
+
+        - createIndex:
+            indexName: idx_ticket_event_type
+            tableName: ticket_event
+            columns:
+              - column: { name: type }

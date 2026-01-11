@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import ru.ryatronth.sd.ticket.dto.TicketPriority;
-import ru.ryatronth.sd.ticket.dto.TimeUnit;
 
 @Schema(description = "Запрос на создание категории обращения")
 public record TicketCategoryCreateRequest(
@@ -16,7 +15,5 @@ public record TicketCategoryCreateRequest(
 
     @Schema(description = "Приоритет категории", requiredMode = Schema.RequiredMode.REQUIRED) @NotNull TicketPriority priority,
 
-    @Schema(description = "Ожидаемое время выполнения", example = "4") @NotNull @Positive Long expectedDuration,
-
-    @Schema(description = "Единицы измерения времени", requiredMode = Schema.RequiredMode.REQUIRED) @NotNull TimeUnit expectedDurationUnit) {
+    @Schema(description = "Ожидаемое время выполнения", example = "4") @NotNull @Positive Long expectedDurationMinutes) {
 }

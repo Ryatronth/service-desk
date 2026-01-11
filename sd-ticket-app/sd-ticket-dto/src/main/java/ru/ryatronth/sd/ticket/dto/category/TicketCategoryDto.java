@@ -5,7 +5,6 @@ import java.time.Instant;
 import java.util.UUID;
 import lombok.Builder;
 import ru.ryatronth.sd.ticket.dto.TicketPriority;
-import ru.ryatronth.sd.ticket.dto.TimeUnit;
 
 @Schema(description = "Категория обращения")
 @Builder
@@ -19,9 +18,7 @@ public record TicketCategoryDto(
 
     @Schema(description = "Приоритет категории") TicketPriority priority,
 
-    @Schema(description = "Ожидаемое время выполнения") Long expectedDuration,
-
-    @Schema(description = "Единицы измерения времени выполнения") TimeUnit expectedDurationUnit,
+    @Schema(description = "Ожидаемое время выполнения") Long expectedDurationMinutes,
 
     @Schema(description = "Дата создания") Instant createdAt,
 

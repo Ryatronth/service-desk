@@ -3,7 +3,7 @@ package ru.ryatronth.sd.file.api;
 import org.springframework.cloud.openfeign.FeignClient;
 
 @FeignClient(
-    name = "sd-iam-sync-users",
+    name = "sd-file",
     url = "${sd.clients.files.url}",
     path = FileApiV1.BASE_PATH
 )

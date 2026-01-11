@@ -48,6 +48,11 @@ public class JwtSecurityUtils implements SecurityUtils {
   }
 
   @Override
+  public CurrentUser currentUserOrThrow() {
+    return currentUser().orElseThrow(() -> new IllegalStateException("Текущий пользователь не определён"));
+  }
+
+  @Override
   public Set<String> currentRoles() {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     if (auth == null) {

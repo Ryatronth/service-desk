@@ -10,13 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.ryatronth.sd.ticket.dto.assignment.UserCategoriesDto;
 import ru.ryatronth.sd.ticket.dto.assignment.UserCategoriesUpdateRequest;
 
 @Tag(name = "User Category Assignments", description = "Управление категориями, доступными пользователю как исполнителю (по филиалу department.id)")
-@RequestMapping(UserCategoryAssignmentApiV1.BASE_PATH)
 public interface UserCategoryAssignmentApiV1 {
 
   String BASE_PATH = "/api/v1/users";

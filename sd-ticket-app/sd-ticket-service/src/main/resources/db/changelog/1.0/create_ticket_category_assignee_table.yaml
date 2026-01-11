@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 1.0-create-ticket-category-assignee-table
-      author: roman.novikov
+      author: ryatronth
       changes:
         - createTable:
             tableName: ticket_category_assignee

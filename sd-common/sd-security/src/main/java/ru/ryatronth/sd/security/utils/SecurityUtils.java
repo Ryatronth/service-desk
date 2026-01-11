@@ -13,5 +13,7 @@ public interface SecurityUtils {
 
   Optional<CurrentUser> currentUser();
 
+  CurrentUser currentUserOrThrow();
+
   Set<String> currentRoles();
 }

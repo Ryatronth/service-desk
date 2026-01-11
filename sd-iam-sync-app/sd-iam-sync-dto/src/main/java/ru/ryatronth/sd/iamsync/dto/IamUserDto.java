@@ -27,4 +27,14 @@ public record IamUserDto(
     @Schema(description = "Идентификатор рабочего места", example = "wp-ny-01") String workplaceCode,
 
     @Schema(description = "Набор ролей пользователя", example = "[\"ROLE_USER\",\"ROLE_TICKET_EXECUTOR\"]") Set<String> roles) {
+
+  public String buildFullName() {
+    String last = lastName() == null ? "" : lastName().trim();
+    String first = firstName() == null ? "" : firstName().trim();
+    String pat = patronymic() == null ? "" : patronymic().trim();
+
+    String full = (last + " " + first + " " + pat).trim().replaceAll("\\s+", " ");
+    return full.isBlank() ? username() : full;
+  }
+
 }

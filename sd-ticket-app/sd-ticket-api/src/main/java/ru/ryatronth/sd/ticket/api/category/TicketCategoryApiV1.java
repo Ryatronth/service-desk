@@ -14,14 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import ru.ryatronth.sd.ticket.api.category.filters.TicketCategoryFilters;
 import ru.ryatronth.sd.ticket.dto.category.TicketCategoryCreateRequest;
 import ru.ryatronth.sd.ticket.dto.category.TicketCategoryDto;
 import ru.ryatronth.sd.ticket.dto.category.TicketCategoryUpdateRequest;
 
 @Tag(name = "Ticket Categories", description = "Управление категориями обращений")
-@RequestMapping(TicketCategoryApiV1.BASE_PATH)
 public interface TicketCategoryApiV1 {
 
   String BASE_PATH = "/api/v1/ticket-categories";

@@ -39,6 +39,11 @@ public class RandomSecurityUtils implements SecurityUtils {
   }
 
   @Override
+  public CurrentUser currentUserOrThrow() {
+    return currentUser().orElseThrow(() -> new IllegalStateException("Текущий пользователь не определён"));
+  }
+
+  @Override
   public Set<String> currentRoles() {
     return CTX.get().roles();
   }

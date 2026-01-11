@@ -1,0 +1,79 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1.0-create-ticket-attachment-entity
+      author: ryatronth
+      changes:
+        - createTable:
+            tableName: ticket_attachment
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: ticket_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: comment_id
+                  type: UUID
+                  constraints:
+                    nullable: true
+
+              - column:
+                  name: file_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: file_snapshot
+                  type: jsonb
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: created_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  defaultValueComputed: now()
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            constraintName: fk_ticket_attachment_ticket
+            baseTableName: ticket_attachment
+            baseColumnNames: ticket_id
+            referencedTableName: ticket
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+        - addForeignKeyConstraint:
+            constraintName: fk_ticket_attachment_comment
+            baseTableName: ticket_attachment
+            baseColumnNames: comment_id
+            referencedTableName: ticket_comment
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+        - createIndex:
+            indexName: idx_ticket_attachment_ticket
+            tableName: ticket_attachment
+            columns:
+              - column: { name: ticket_id }
+
+        - createIndex:
+            indexName: idx_ticket_attachment_comment
+            tableName: ticket_attachment
+            columns:
+              - column: { name: comment_id }
+
+        - createIndex:
+            indexName: idx_ticket_attachment_file
+            tableName: ticket_attachment
+            columns:
+              - column: { name: file_id }

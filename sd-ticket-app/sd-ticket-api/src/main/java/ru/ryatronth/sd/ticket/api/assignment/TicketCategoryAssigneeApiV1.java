@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.ryatronth.sd.ticket.dto.assignment.TicketCategoryAssigneeDto;
 import ru.ryatronth.sd.ticket.dto.assignment.TicketCategoryAssigneesUpdateRequest;
 
 @Tag(name = "Ticket Category Assignees", description = "Управление исполнителями категорий обращений в разрезе филиалов (department.id)")
-@RequestMapping(TicketCategoryAssigneeApiV1.BASE_PATH)
 public interface TicketCategoryAssigneeApiV1 {
 
   String BASE_PATH = "/api/v1/ticket-categories";

@@ -41,8 +41,7 @@ public class TicketCategoryService {
     entity.setName(request.name().trim());
     entity.setDescription(request.description());
     entity.setPriority(request.priority());
-    entity.setExpectedDuration(request.expectedDuration());
-    entity.setExpectedDurationUnit(request.expectedDurationUnit());
+    entity.setExpectedDurationMinutes(request.expectedDurationMinutes());
 
     return repository.save(entity);
   }
@@ -61,11 +60,8 @@ public class TicketCategoryService {
     if (request.priority() != null) {
       entity.setPriority(request.priority());
     }
-    if (request.expectedDuration() != null) {
-      entity.setExpectedDuration(request.expectedDuration());
-    }
-    if (request.expectedDurationUnit() != null) {
-      entity.setExpectedDurationUnit(request.expectedDurationUnit());
+    if (request.expectedDurationMinutes() != null) {
+      entity.setExpectedDurationMinutes(request.expectedDurationMinutes());
     }
 
     return repository.save(entity);

@@ -7,9 +7,12 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,8 +22,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import ru.ryatronth.sd.ticket.domain.ticket.TicketEntity;
 import ru.ryatronth.sd.ticket.dto.TicketPriority;
-import ru.ryatronth.sd.ticket.dto.TimeUnit;
 
 @Getter
 @Setter
@@ -49,12 +52,8 @@ public class TicketCategoryEntity {
   @Column(name = "priority", nullable = false, length = 32)
   private TicketPriority priority;
 
-  @Column(name = "expected_duration", nullable = false)
-  private Long expectedDuration;
-
-  @Enumerated(EnumType.STRING)
-  @Column(name = "expected_duration_unit", nullable = false, length = 32)
-  private TimeUnit expectedDurationUnit;
+  @Column(name = "expected_duration_minutes", nullable = false)
+  private Long expectedDurationMinutes;
 
   @CreationTimestamp
   @Column(name = "created_at", nullable = false, updatable = false)
@@ -63,4 +62,8 @@ public class TicketCategoryEntity {
   @UpdateTimestamp
   @Column(name = "updated_at", nullable = false)
   private Instant updatedAt;
+
+  @OneToMany(mappedBy = "category", orphanRemoval = true)
+  private Set<TicketEntity> tickets = new LinkedHashSet<>();
+
 }

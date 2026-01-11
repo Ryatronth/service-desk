@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import ru.ryatronth.sd.property.reader.EnableConfigFiles;
 
 @Configuration
-@EnableFeignClients
+@EnableFeignClients(basePackages = "ru.ryatronth.sd.department.api")
 @EnableConfigFiles("department-client.yml")
 public class DepartmentApiConfig {
 }

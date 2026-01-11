@@ -11,8 +11,18 @@ public record CurrentUser(
     String lastName,
     String patronymic,
     boolean enabled,
-    String departmentId,
-    String workplaceId,
+    String departmentCode,
+    String workplaceCode,
     Set<String> roles
 ) {
+
+  public String buildFullName() {
+    String last = lastName() == null ? "" : lastName().trim();
+    String first = firstName() == null ? "" : firstName().trim();
+    String pat = patronymic() == null ? "" : patronymic().trim();
+
+    String full = (last + " " + first + " " + pat).trim().replaceAll("\\s+", " ");
+    return full.isBlank() ? username() : full;
+  }
+
 }

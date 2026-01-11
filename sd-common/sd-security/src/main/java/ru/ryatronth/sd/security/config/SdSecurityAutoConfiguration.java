@@ -35,6 +35,7 @@ import ru.ryatronth.sd.security.keycloak.groups.KeycloakGroupPathsMapper;
 import ru.ryatronth.sd.security.utils.JwtSecurityUtils;
 import ru.ryatronth.sd.security.utils.RandomSecurityUtils;
 import ru.ryatronth.sd.security.utils.SecurityUtils;
+import ru.ryatronth.sd.security.utils.SystemUserProvider;
 
 @Slf4j
 @Import(BaseSdSecurityConfig.class)
@@ -99,6 +100,12 @@ public class SdSecurityAutoConfiguration {
                                      JwtClaimsExtractor jwtClaimsExtractor) {
     return properties.isEnabled() ? new JwtSecurityUtils(jwtClaimsExtractor) :
         new RandomSecurityUtils();
+  }
+
+  @Bean
+  @ConditionalOnMissingBean
+  public SystemUserProvider systemUserProvider() {
+    return new SystemUserProvider();
   }
 
   @Bean

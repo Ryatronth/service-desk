@@ -13,6 +13,11 @@
     <artifactId>sd-ticket-service</artifactId>
     <packaging>jar</packaging>
 
+    <properties>
+        <ulid-creator.version>5.2.3</ulid-creator.version>
+        <hybernate-types.version>2.21.1</hybernate-types.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -21,6 +26,21 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>sd-ticket-dto</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>sd-department-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>sd-file-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>sd-iam-sync-api</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -61,6 +81,19 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.f4b6a3</groupId>
+            <artifactId>ulid-creator</artifactId>
+            <version>${ulid-creator.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vladmihalcea</groupId>
+            <artifactId>hibernate-types-60</artifactId>
+            <version>${hybernate-types.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
