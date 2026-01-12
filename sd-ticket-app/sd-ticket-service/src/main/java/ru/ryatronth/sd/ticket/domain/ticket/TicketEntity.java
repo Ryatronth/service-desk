@@ -129,6 +129,9 @@ public class TicketEntity {
   @Column(name = "assignee_snapshot", columnDefinition = "jsonb")
   private UserSnapshot assigneeSnapshot;
 
+  @Column(name = "last_assignee_attempt")
+  private Instant lastAssigneeAttempt;
+
   @Column(name = "closed_at")
   private Instant closedAt;
 

@@ -17,11 +17,17 @@ databaseChangeLog:
                   name: category_id
                   type: UUID
                   constraints:
-                    nullable: false
+                    nullable: true
 
               - column:
                   name: department_id
                   type: UUID
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: assignment_type
+                  type: VARCHAR(64)
                   constraints:
                     nullable: false
 
@@ -45,25 +51,24 @@ databaseChangeLog:
             referencedColumnNames: id
             onDelete: CASCADE
 
-        - addUniqueConstraint:
-            constraintName: uk_tca_category_department_user
-            tableName: ticket_category_assignee
-            columnNames: category_id, department_id, user_id
-
         - createIndex:
-            indexName: idx_tca_category_department
+            indexName: idx_tca_department_category_type
             tableName: ticket_category_assignee
             columns:
+              - column:
+                  name: department_id
               - column:
                   name: category_id
               - column:
-                  name: department_id
+                  name: assignment_type
 
         - createIndex:
-            indexName: idx_tca_user_department
+            indexName: idx_tca_department_user_type
             tableName: ticket_category_assignee
             columns:
               - column:
+                  name: department_id
+              - column:
                   name: user_id
               - column:
-                  name: department_id
+                  name: assignment_type

@@ -48,7 +48,7 @@ public class TicketService {
         .status(filters == null ? null : filters.status())
         .priority(filters == null ? null : filters.priority())
         .categoryId(filters == null ? null : filters.categoryId())
-        .requesterDepartmentId(filters == null ? null : filters.requesterDepartmentId())
+        .requesterUserId(filters == null ? null : filters.requesterUserId())
         .assigneeUserId(filters == null ? null : filters.assigneeUserId())
         .dueFrom(filters == null ? null : filters.dueFrom())
         .dueTo(filters == null ? null : filters.dueTo())

@@ -32,9 +32,9 @@ public final class TicketSpecifications {
         : cb.equal(root.get("category").get("id"), categoryId);
   }
 
-  public static Specification<TicketEntity> requesterDepartmentIdEquals(UUID departmentId) {
-    return (root, query, cb) -> departmentId == null ? cb.conjunction()
-        : cb.equal(root.get("requesterDepartmentId"), departmentId);
+  public static Specification<TicketEntity> requesterUserIdEquals(UUID userId) {
+    return (root, query, cb) -> userId == null ? cb.conjunction()
+        : cb.equal(root.get("requesterUserId"), userId);
   }
 
   public static Specification<TicketEntity> assigneeUserIdEquals(UUID assigneeUserId) {
@@ -85,7 +85,7 @@ public final class TicketSpecifications {
     private TicketStatus status;
     private TicketPriority priority;
     private UUID categoryId;
-    private UUID requesterDepartmentId;
+    private UUID requesterUserId;
     private UUID assigneeUserId;
     private Instant dueFrom;
     private Instant dueTo;
@@ -109,8 +109,8 @@ public final class TicketSpecifications {
       if (categoryId != null) {
         active.add(categoryIdEquals(categoryId));
       }
-      if (requesterDepartmentId != null) {
-        active.add(requesterDepartmentIdEquals(requesterDepartmentId));
+      if (requesterUserId != null) {
+        active.add(requesterUserIdEquals(requesterUserId));
       }
       if (assigneeUserId != null) {
         active.add(assigneeUserIdEquals(assigneeUserId));

@@ -12,10 +12,6 @@ public record TransferTicketToParentDepartmentEventPayload(
 
     UUID oldAssigneeUserId,
 
-    UUID newAssigneeUserId,
-
-    UserSnapshot oldAssigneeSnapshot,
-
-    UserSnapshot newAssigneeSnapshot
+    UserSnapshot oldAssigneeSnapshot
 ) {
 }

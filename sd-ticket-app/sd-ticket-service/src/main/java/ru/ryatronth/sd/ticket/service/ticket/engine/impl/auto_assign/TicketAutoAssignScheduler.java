@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ryatronth.sd.security.utils.SystemUserProvider;
 import ru.ryatronth.sd.ticket.domain.ticket.TicketEntityRepository;
-import ru.ryatronth.sd.ticket.dto.TicketStatus;
 import ru.ryatronth.sd.ticket.service.ticket.engine.core.TicketEngine;
 
 @Slf4j
@@ -22,14 +21,14 @@ public class TicketAutoAssignScheduler {
   private final TicketEngine ticketEngine;
   private final SystemUserProvider systemUserProvider;
 
-  private static final Duration MIN_AGE = Duration.ofSeconds(5);
+  private static final Duration MIN_AGE = Duration.ofMinutes(5);
 
   @Scheduled(fixedDelayString = "${sd.ticket.auto-assign.fixed-delay-ms:30000}")
   @Transactional
   public void autoAssign() {
-    var before = Instant.now().minus(MIN_AGE);
+    var due = Instant.now().minus(MIN_AGE);
 
-    var ids = ticketRepo.findUnassigned(TicketStatus.NEW, before);
+    var ids = ticketRepo.findUnassigned(due);
     if (ids.isEmpty()) {
       return;
     }

@@ -23,7 +23,7 @@ public record TicketFilters(
     UUID categoryId,
 
     @Schema(description = "UUID филиала отправителя")
-    UUID requesterDepartmentId,
+    UUID requesterUserId,
 
     @Schema(description = "UUID текущего исполнителя")
     UUID assigneeUserId,

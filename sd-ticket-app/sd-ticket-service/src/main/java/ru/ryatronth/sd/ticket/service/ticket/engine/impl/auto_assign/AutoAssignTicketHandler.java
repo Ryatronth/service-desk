@@ -7,6 +7,7 @@ import ru.ryatronth.sd.ticket.adapter.IamUsersClientAdapter;
 import ru.ryatronth.sd.ticket.domain.assignment.TicketCategoryAssigneeEntityRepository;
 import ru.ryatronth.sd.ticket.domain.ticket.TicketEntity;
 import ru.ryatronth.sd.ticket.domain.ticket.TicketEntityRepository;
+import ru.ryatronth.sd.ticket.dto.assignment.TicketAssignmentType;
 import ru.ryatronth.sd.ticket.dto.event.TicketEventType;
 import ru.ryatronth.sd.ticket.mapper.ticket.TicketUserSnapshotMapper;
 import ru.ryatronth.sd.ticket.service.ticket.engine.core.context.OnTicketContext;
@@ -19,7 +20,8 @@ import ru.ryatronth.sd.ticket.service.ticket.engine.core.result.TicketHistoryEve
 public class AutoAssignTicketHandler implements OnTicketHandler<AutoAssignTicketCommand, AutoAssignTicketResult> {
 
   private static final String COMMENT_ASSIGNED = "Исполнитель назначен автоматически";
-  private static final String COMMENT_NOT_FOUND = "Автоназначение: исполнитель не найден.";
+  private static final String COMMENT_NOT_FOUND = "Исполнитель не найден. Повторная попытка будет произведена позже";
+  private static final String COMMENT_MANAGER = "Автоназначение: исполнитель не найден. Перевод обращения менеджеру филиала";
 
   private final TicketEntityRepository ticketEntityRepository;
   private final TicketCategoryAssigneeEntityRepository assigneeRepo;
@@ -43,15 +45,21 @@ public class AutoAssignTicketHandler implements OnTicketHandler<AutoAssignTicket
     UUID categoryId = ticket.getCategory().getId();
     UUID departmentId = ticket.getCurrentDepartmentId();
 
-    var candidates = assigneeRepo.findAllFor(categoryId, departmentId);
+    var candidates = assigneeRepo.findByIdAndDepartmentIdAndAssignmentType(categoryId, departmentId, TicketAssignmentType.EXECUTOR);
+    var comment = COMMENT_ASSIGNED;
     if (candidates.isEmpty()) {
-      var result = new AutoAssignTicketResult(ticket);
-      var event = new TicketHistoryEvent(
-          TicketEventType.ASSIGNEE_CHANGED,
-          new AutoAssignTicketEventPayload(null),
-          COMMENT_NOT_FOUND
-      );
-      return HandlerResult.of(result, event);
+      candidates = assigneeRepo.findByIdAndDepartmentIdAndAssignmentType(null, departmentId, TicketAssignmentType.MANAGER);
+      comment = COMMENT_MANAGER;
+
+      if (candidates.isEmpty()) {
+        var result = new AutoAssignTicketResult(ticket);
+        var event = new TicketHistoryEvent(
+            TicketEventType.ASSIGNEE_CHANGED,
+            new AutoAssignTicketEventPayload(null),
+            COMMENT_NOT_FOUND
+        );
+        return HandlerResult.of(result, event);
+      }
     }
 
     UUID assigneeUserId = candidates.getFirst().getUserId();
@@ -66,7 +74,7 @@ public class AutoAssignTicketHandler implements OnTicketHandler<AutoAssignTicket
     var event = new TicketHistoryEvent(
         TicketEventType.ASSIGNEE_CHANGED,
         payload,
-        COMMENT_ASSIGNED
+        comment
     );
 
     return HandlerResult.of(new AutoAssignTicketResult(ticket), event);
